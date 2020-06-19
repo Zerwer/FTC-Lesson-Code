@@ -6,12 +6,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "OperatorDrive2")
+@TeleOp(name = "OperatorDrive")
 public class OperatorDrive extends OpMode{
     
     private DcMotor left;
     private DcMotor right;
-    private Servo servo;
+    private Servo front;
+    private Servo back;
 
     private double speed;
 
@@ -22,7 +23,8 @@ public class OperatorDrive extends OpMode{
     public void init() {
         left = hardwareMap.get(DcMotor.class, "leftMotor");
         right = hardwareMap.get(DcMotor.class, "rightMotor");
-        servo = hardwareMap.get(Servo.class, "servo");
+        front = hardwareMap.get(Servo.class, "frontServo");
+        back = hardwareMap.get(Servo.class, "backServo");
 
         right.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -48,13 +50,13 @@ public class OperatorDrive extends OpMode{
 
         if(servoButton && !oldServoButton) {
             if(servoPos == 0){
-                servo.setPosition(1);
-                servoPos = 1;
+                servoPos = 0.5;
             }
             else {
-                servo.setPosition(0);
                 servoPos = 0;
             }
+            front.setPosition(servoPos);
+            back.setPosition(servoPos);
         }
         
         oldServoButton = servoButton;
