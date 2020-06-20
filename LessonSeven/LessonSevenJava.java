@@ -1,19 +1,18 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import java.util.ArrayList;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous(name = "Auto")
-public class LessonSevenJava extends LinearOpMode{
+public class Auto extends LinearOpMode {
 
     private DcMotor left;
     private DcMotor right;
-
-    private int leftPosition;
-    private int rightPosition;
+    
+    private int leftPos;
+    private int rightPos;
 
     @Override
     public void runOpMode() {
@@ -25,27 +24,27 @@ public class LessonSevenJava extends LinearOpMode{
         
         right.setDirection(DcMotorSimple.Direction.REVERSE);
         
-        rightPosition = 0;
-        leftPosition = 0;
+        leftPos = 0;
+        rightPos = 0;
         
         waitForStart();
         
-        drive(1000, 1000);
-        drive(-1000, 1000);
+        drive(1000, 1000, 0.25);
+        drive(1000, -1000, 0.25);
     }
     
-    private void drive(int leftTarget, int rightTarget) {
-        leftPosition += leftTarget;
-        rightPosition += rightTarget;
+    private void drive(int leftTarget, int rightTarget, double speed) {
+        leftPos += leftTarget;
+        rightPos += rightTarget;
         
-        left.setTargetPosition(leftPosition);
-        right.setTargetPosition(rightPosition);
+        left.setTargetPosition(leftPos);
+        right.setTargetPosition(rightPos);
         
         left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         
-        left.setPower(0.25);
-        right.setPower(0.25);
+        left.setPower(speed);
+        right.setPower(speed);
         
         while(opModeIsActive() && left.isBusy() && right.isBusy()) {
             idle();
