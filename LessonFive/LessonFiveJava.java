@@ -48,16 +48,18 @@ public class OperatorDrive extends OpMode{
             right.setPower(0);
         }
         
-        if(servoButton && !oldServoButton) {
-            if(servoPos == 0) {
-                servoPos = 0.5;
-            }
-            else {
-                servoPos = 0;
-            }
-            front.setPosition(servoPos);
-            back.setPosition(servoPos);
-        }
+	    if(servoButton && !oldServoButton) {
+	        if(servoPos == 0) {
+	            front.setPosition(0);
+	            back.setPosition(1);
+	            servoPos = 1;
+	        }
+	        else {
+	            front.setPosition(0.5);
+	            back.setPosition(0.5);
+	            servoPos = 0;
+	        }
+	    }
         
         oldServoButton = servoButton;
     }
